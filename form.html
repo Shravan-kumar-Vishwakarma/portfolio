@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toggle Form</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    /* Style the form container */
+    #formContainer {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Button to open and close the form -->
+<button id="toggleButton">Toggle Form</button>
+
+<!-- Form container -->
+<div id="formContainer">
+  <h2>My Form</h2>
+  <form id="myForm">
+    <!-- Add your form fields here -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <br>
+    <input type="submit" value="Submit">
+    <button type="button" id="closeButton">Close</button>
+  </form>
+</div>
+
+<script>
+  // Toggle form visibility using jQuery
+  $(document).ready(function(){
+    $("#toggleButton").click(function(e){
+      e.stopPropagation(); // Prevents the event from reaching the document click handler
+      $("#formContainer").toggle();
+    });
+
+    $("#closeButton").click(function(){
+      $("#formContainer").hide();
+    });
+
+    // Click handler for the document body
+    $(document).on("click", function(e) {
+      if (!$("#myForm").has(e.target).length) {
+        // If the click is outside the form, hide the form
+        $("#formContainer").hide();
+      }
+    });
+
+    // Prevent form from hiding when clicking inside the form
+    $("#myForm").on("click", function(e) {
+      e.stopPropagation(); // Prevents the event from reaching the document click handler
+    });
+  });
+</script>
+
+</body>
+</html>
